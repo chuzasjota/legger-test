@@ -1,0 +1,141 @@
+# Translation of Themes - BlankSlate in Spanish (Colombia)
+# This file is distributed under the same license as the Themes - BlankSlate package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2024-06-12 04:00:13+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: es_CO\n"
+"Project-Id-Version: Themes - BlankSlate\n"
+
+#. Description of the theme
+#: style.css
+#, gp-priority: high
+msgid "Donate: https://opencollective.com/blankslate. Learn: https://blankslate.me/. BlankSlate is the definitive WordPress boilerplate starter theme. I've carefully constructed the most clean and minimalist theme possible for designers and developers to use as a base to build websites for clients or to build completely custom themes from scratch. Clean, simple, unstyled, semi-minified, unformatted, and valid code, SEO-friendly, jQuery-enabled, no programmer comments, standardized and as white label as possible, and most importantly, the CSS is reset for cross-browser-compatability, with no intrusive visual CSS styles added whatsoever. A perfect skeleton theme. For support and suggestions, go to: https://github.com/bhadaway/blankslate/issues. Thank you."
+msgstr "Donaciones: https://opencollective.com/blankslate. Aprender: https://blankslate.me/. BlankSlate es el tema de inicio definitivo para WordPress. Hemos construido cuidadosamente el tema más limpio y minimalista posible para que diseñadores y desarrolladores lo utilicen como base para maquetar sitios web para clientes o para crear temas completamente personalizados desde cero. Código limpio, sencillo, sin estilos, semi-minimizado, sin formato y válido, compatible con SEO, habilitado para jQuery, sin comentarios de programador, estandarizado y lo más de marca blanca posible, y lo más importante, el CSS está restablecido para la compatibilidad entre navegadores y no se han añadido estilos CSS visuales intrusivos en absoluto. Un tema esqueleto perfecto. Para soporte y sugerencias, dirígete a: https://github.com/bhadaway/blankslate/issues. Muchas gracias."
+
+#. Theme Name of the theme
+#: style.css
+#, gp-priority: high
+msgid "BlankSlate"
+msgstr "BlankSlate"
+
+#: functions.php:22
+msgid "How do you use BlankSlate?"
+msgstr "¿Cómo utilizas BlankSlate?"
+
+#: functions.php:22
+msgid "Support"
+msgstr "Soporte"
+
+#: functions.php:22
+msgid "Powering over 10k websites! Buy me a sandwich! 🥪"
+msgstr "Más de 10.000 sitios web. ¡Cómprame un bocadillo! 🥪"
+
+#: functions.php:22
+msgid "Donate"
+msgstr "Donar"
+
+#: functions.php:22
+msgid "Review"
+msgstr "Reseña"
+
+#: functions.php:22
+msgid "<big><strong>🏆 Thank you for using BlankSlate!</strong></big>"
+msgstr "<big><strong>🏆 ¡Gracias por utilizar BlankSlate!</strong></big>"
+
+#: functions.php:22
+msgid "Ⓧ"
+msgstr "Ⓧ"
+
+#: functions.php:111 functions.php:118
+msgid "...%s"
+msgstr "...%s"
+
+#: functions.php:106
+msgid "Skip to the content"
+msgstr "Saltar al contenido"
+
+#: attachment.php:8
+msgid "%s Return to "
+msgstr "%s Volver a "
+
+#: footer.php:6
+msgid "Y"
+msgstr "Y"
+
+#: comments.php:30
+msgctxt "comments count"
+msgid "Trackback or Pingback"
+msgid_plural "Trackbacks and Pingbacks"
+msgstr[0] "Trackback o pingback"
+msgstr[1] "Trackbacks y pingbacks"
+
+#: search.php:16
+msgid "Sorry, nothing matched your search. Please try again."
+msgstr "Lo siento, no hay nada que coincida con tu búsqueda. Por favor, inténtalo de nuevo."
+
+#: search.php:13
+msgid "Nothing Found"
+msgstr "No se ha encontrado nada"
+
+#: search.php:4
+msgid "Search Results for: %s"
+msgstr "Resultados de la búsqueda de: %s"
+
+#: nav-below.php:3
+msgid "newer %s"
+msgstr "siguientes %s"
+
+#: nav-below.php:2
+msgid "%s older"
+msgstr "%s anteriores"
+
+#: functions.php:132
+msgid "Sidebar Widget Area"
+msgstr "Área de widgets de la barra lateral"
+
+#: functions.php:14
+msgid "Main Menu"
+msgstr "Menú principal"
+
+#: entry-footer.php:4
+msgid "Comments"
+msgstr "Comentarios"
+
+#: entry-footer.php:2
+msgid "Categories: "
+msgstr "Categorías: "
+
+#: attachment.php:8
+msgid "Return to %s"
+msgstr "Volver a %s"
+
+#: 404.php:7
+msgid "Nothing found for the requested page. Try a search instead?"
+msgstr "No se ha encontrado nada para la página solicitada. ¿Qué tal si pruebas con una búsqueda?"
+
+#: 404.php:4
+msgid "Not Found"
+msgstr "No encontrado"
+
+#. Author of the theme
+#: style.css
+#, gp-priority: low
+msgid "Bryan Hadaway"
+msgstr "Bryan Hadaway"
+
+#. Author URI of the theme
+#: style.css
+#, gp-priority: low
+msgid "https://opencollective.com/blankslate#section-contributors"
+msgstr "https://opencollective.com/blankslate#section-contributors"
+
+#. Theme URI of the theme
+#: style.css
+#, gp-priority: low
+msgid "https://opencollective.com/blankslate"
+msgstr "https://opencollective.com/blankslate"
