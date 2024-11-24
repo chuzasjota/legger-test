@@ -10,3 +10,5 @@ Este proyecto implementa un formulario de registro con AJAX, utiliza un endpoint
    - Un endpoint que obtiene la dirección IP del visitante utilizando `https://api.ipify.org?format=json` y expone como JSON la información.
 3. **Descarga de leads en CSV**:
    - Hay un enlace en la página de inicio que permite descargar un archivo con todos los registros en formato CSV.
+4. **Base de datos**
+   - Al clonar este proyecto se debe importar la base de datos encontrada en la carpeta `db` en la raíz del proyecto.
