@@ -10,3 +10,42 @@
 
 /* Aquí puedes agregar tus estilos personalizados */
 
+#registro {
+    background-image: url('img/fondo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#registro > .container-fluid {
+    background-image: url('img/texturas.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#registro > .container-fluid .img-fluid {
+    width: 80%;
+}
+
+#form-registro .circle-number {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #6f42c1;
+    color: white;
+    border-radius: 50%;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+#form-registro .btn {
+    background-color: #6f42c1;
+    border-color: #6f42c1;
+}
+
+#success-message {
+    display: none;
+}
