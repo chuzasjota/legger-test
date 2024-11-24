@@ -13,57 +13,10 @@ global $content_width;
 if ( !isset( $content_width ) ) { $content_width = 1920; }
 register_nav_menus( array( 'main-menu' => esc_html__( 'Main Menu', 'blankslate' ) ) );
 }
-add_action( 'admin_notices', 'blankslate_notice' );
-function blankslate_notice() {
-$user_id = get_current_user_id();
-$admin_url = ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http' ) . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-$param = ( count( $_GET ) ) ? '&' : '?';
-if ( !get_user_meta( $user_id, 'blankslate_notice_dismissed_11' ) && current_user_can( 'manage_options' ) )
-echo '<div class="notice notice-info"><p><a href="' . esc_url( $admin_url ), esc_html( $param ) . 'dismiss" class="alignright" style="text-decoration:none"><big>' . esc_html__( 'Ⓧ', 'blankslate' ) . '</big></a>' . wp_kses_post( __( '<big><strong>🏆 Thank you for using BlankSlate!</strong></big>', 'blankslate' ) ) . '<p>' . esc_html__( 'Powering over 10k websites! Buy me a sandwich! 🥪', 'blankslate' ) . '</p><a href="https://github.com/bhadaway/blankslate/issues/57" class="button-primary" target="_blank"><strong>' . esc_html__( 'How do you use BlankSlate?', 'blankslate' ) . '</strong></a> <a href="https://opencollective.com/blankslate" class="button-primary" style="background-color:green;border-color:green" target="_blank"><strong>' . esc_html__( 'Donate', 'blankslate' ) . '</strong></a> <a href="https://wordpress.org/support/theme/blankslate/reviews/#new-post" class="button-primary" style="background-color:purple;border-color:purple" target="_blank"><strong>' . esc_html__( 'Review', 'blankslate' ) . '</strong></a> <a href="https://github.com/bhadaway/blankslate/issues" class="button-primary" style="background-color:orange;border-color:orange" target="_blank"><strong>' . esc_html__( 'Support', 'blankslate' ) . '</strong></a></p></div>';
-}
-add_action( 'admin_init', 'blankslate_notice_dismissed' );
-function blankslate_notice_dismissed() {
-$user_id = get_current_user_id();
-if ( isset( $_GET['dismiss'] ) )
-add_user_meta( $user_id, 'blankslate_notice_dismissed_11', 'true', true );
-}
 add_action( 'wp_enqueue_scripts', 'blankslate_enqueue' );
 function blankslate_enqueue() {
 wp_enqueue_style( 'blankslate-style', get_stylesheet_uri() );
 wp_enqueue_script( 'jquery' );
-}
-add_action( 'wp_footer', 'blankslate_footer' );
-function blankslate_footer() {
-?>
-<script>
-jQuery(document).ready(function($) {
-var deviceAgent = navigator.userAgent.toLowerCase();
-if (deviceAgent.match(/(iphone|ipod|ipad)/)) {
-$("html").addClass("ios");
-$("html").addClass("mobile");
-}
-if (deviceAgent.match(/(Android)/)) {
-$("html").addClass("android");
-$("html").addClass("mobile");
-}
-if (navigator.userAgent.search("MSIE") >= 0) {
-$("html").addClass("ie");
-}
-else if (navigator.userAgent.search("Chrome") >= 0) {
-$("html").addClass("chrome");
-}
-else if (navigator.userAgent.search("Firefox") >= 0) {
-$("html").addClass("firefox");
-}
-else if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
-$("html").addClass("safari");
-}
-else if (navigator.userAgent.search("Opera") >= 0) {
-$("html").addClass("opera");
-}
-});
-</script>
-<?php
 }
 add_filter( 'document_title_separator', 'blankslate_document_title_separator' );
 function blankslate_document_title_separator( $sep ) {
@@ -101,23 +54,6 @@ function blankslate_wp_body_open() {
 do_action( 'wp_body_open' );
 }
 }
-add_action( 'wp_body_open', 'blankslate_skip_link', 5 );
-function blankslate_skip_link() {
-echo '<a href="#content" class="skip-link screen-reader-text">' . esc_html__( 'Skip to the content', 'blankslate' ) . '</a>';
-}
-add_filter( 'the_content_more_link', 'blankslate_read_more_link' );
-function blankslate_read_more_link() {
-if ( !is_admin() ) {
-return ' <a href="' . esc_url( get_permalink() ) . '" class="more-link">' . sprintf( __( '...%s', 'blankslate' ), '<span class="screen-reader-text">  ' . esc_html( get_the_title() ) . '</span>' ) . '</a>';
-}
-}
-add_filter( 'excerpt_more', 'blankslate_excerpt_read_more_link' );
-function blankslate_excerpt_read_more_link( $more ) {
-if ( !is_admin() ) {
-global $post;
-return ' <a href="' . esc_url( get_permalink( $post->ID ) ) . '" class="more-link">' . sprintf( __( '...%s', 'blankslate' ), '<span class="screen-reader-text">  ' . esc_html( get_the_title() ) . '</span>' ) . '</a>';
-}
-}
 add_filter( 'big_image_size_threshold', '__return_false' );
 add_filter( 'intermediate_image_sizes_advanced', 'blankslate_image_insert_override' );
 function blankslate_image_insert_override( $sizes ) {
@@ -126,42 +62,246 @@ unset( $sizes['1536x1536'] );
 unset( $sizes['2048x2048'] );
 return $sizes;
 }
-add_action( 'widgets_init', 'blankslate_widgets_init' );
-function blankslate_widgets_init() {
-register_sidebar( array(
-'name' => esc_html__( 'Sidebar Widget Area', 'blankslate' ),
-'id' => 'primary-widget-area',
-'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
-'after_widget' => '</li>',
-'before_title' => '<h3 class="widget-title">',
-'after_title' => '</h3>',
-) );
-}
 add_action( 'wp_head', 'blankslate_pingback_header' );
 function blankslate_pingback_header() {
 if ( is_singular() && pings_open() ) {
 printf( '<link rel="pingback" href="%s">' . "\n", esc_url( get_bloginfo( 'pingback_url' ) ) );
 }
 }
-add_action( 'comment_form_before', 'blankslate_enqueue_comment_reply_script' );
-function blankslate_enqueue_comment_reply_script() {
-if ( get_option( 'thread_comments' ) ) {
-wp_enqueue_script( 'comment-reply' );
+// Add Bootstrap Framework
+function enqueue_assets() {
+    // Registrar Bootstrap CSS
+    wp_enqueue_style(
+        'bootstrap-css',
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
+        array(),
+        '5.3.3', 
+        'all'
+    );
+    // Registrar Bootstrap JS
+    wp_enqueue_script(
+        'bootstrap-js',
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js',
+        array(),
+        '5.3.3',
+        true
+    );
+    // Registrar Custom JS
+    wp_enqueue_script(
+        'main-js',
+        get_template_directory_uri() . '/js/main.js',
+        array(),
+        true
+    ); 
 }
+add_action('wp_enqueue_scripts', 'enqueue_assets');
+
+// Enqueue form Ajax
+function dcms_insert_custom_js(){
+	wp_register_script('dcms_script', get_stylesheet_directory_uri(). '/js/form.js', array('jquery'), '1.0.0', true );
+	wp_localize_script('dcms_script', 'dcms_form',
+		[ 'ajaxUrl'=>admin_url('admin-ajax.php'),
+		  'frmNonce' => wp_create_nonce('secret-key-form')
+		]);
+	wp_enqueue_script('dcms_script');
 }
-function blankslate_custom_pings( $comment ) {
-?>
-<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>"><?php echo esc_url( comment_author_link() ); ?></li>
-<?php
+add_action('wp_enqueue_scripts', 'dcms_insert_custom_js');
+
+// Create the Register form
+add_filter('the_content', 'dcms_show_contact_ajax_form');
+function dcms_show_contact_ajax_form( $content ){
+	if ( ! is_page('registro') ) return $content;
+	ob_start();
+	?>
+    <form id="form-registro" class="p-4 p-md-5 border rounded-3 bg-light" action="">
+        <h3 class="pb-4 text-body-tertiary"><span class="circle-number">1</span> Inscripción punto de venta</h3>
+        <!-- Campo Nombre del Cliente -->
+        <div class="mb-3">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Nombre del Cliente" required pattern="^[A-Za-zÀ-ÿÑñ\s]+$" title="Solo se permiten letras, incluidas tildes y ñ.">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="nit" name="nit" placeholder="NIT" required pattern="^[^#“,*+¿¡?]+$" title="No se permiten caracteres especiales (# “ , * + ¿ ¡ ?).">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="namePunto" name="namePunto" placeholder="Nombre del punto" pattern="^[^#“,*+¿¡?]+$" title="No se permiten caracteres especiales (# “ , * + ¿ ¡ ?).">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="nameEquipo" name="nameEquipo" placeholder="Nombre del equipo" pattern="^[^#“,*+¿¡?]+$" title="No se permiten caracteres especiales (# “ , * + ¿ ¡ ?).">
+        </div>
+        <select class="form-select mb-3" id="city" name="city">
+            <option value="" disabled selected>Ciudad</option>
+            <option value="bogota">Bogotá</option>
+            <option value="medellin">Medellín</option>
+            <option value="cali">Cali</option>
+            <option value="barranquilla">Barranquilla</option>
+            <option value="cartagena">Cartagena</option>
+            <option value="bucaramanga">Bucaramanga</option>
+            <option value="cucuta">Cúcuta</option>
+            <option value="pereira">Pereira</option>
+            <option value="santa_marta">Santa Marta</option>
+            <option value="ibague">Ibagué</option>
+            <option value="manizales">Manizales</option>
+            <option value="villavicencio">Villavicencio</option>
+            <option value="neiva">Neiva</option>
+            <option value="armenia">Armenia</option>
+        </select>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="promotor" name="promotor" placeholder="Promotor" pattern="^[^#“,*+¿¡?]+$" title="No se permiten caracteres especiales (# “ , * + ¿ ¡ ?).">
+        </div>
+        <div class="mb-3">
+            <?php $rtc = isset($_GET['rtc']) ? sanitize_text_field($_GET['rtc']) : ''; ?>
+            <input type="number" readonly value="<?php echo $rtc; ?>" class="form-control" id="rtc" name="rtc" placeholder="RTC">
+        </div>
+        <div class="mb-3">
+            <input type="text" oninput="this.value = this.value.toLowerCase();" class="form-control" id="capitan" name="capitan" placeholder="Capitán y/o Usuario (Solo minúsculas)" pattern="^[^#“,*+¿¡?]+$" title="No se permiten caracteres especiales (# “ , * + ¿ ¡ ?).">
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="dataPolicy" name="dataPolicy" required>
+            <label for="dataPolicy" class="form-check-label">He leido y acepto las politicas de tratamiento de datos personales. Conoce los <a href="#">Terminos y condiciones</a></label>
+        </div>
+        <input type="hidden" id="ip" name="ip">
+        <button class="w-100 btn btn-lg btn-primary" id="submit" type="submit">Siguiente</button>
+    </form>
+	<?php
+	$htm_form = ob_get_contents();
+	ob_end_clean();
+
+	return $content . $htm_form;
 }
-add_filter( 'get_comments_number', 'blankslate_comment_count', 0 );
-function blankslate_comment_count( $count ) {
-if ( !is_admin() ) {
-global $id;
-$get_comments = get_comments( 'status=approve&post_id=' . $id );
-$comments_by_type = separate_comments( $get_comments );
-return count( $comments_by_type['comment'] );
-} else {
-return $count;
+
+function dcms_process_contact_form() {
+	$nonce = $_POST['nonce']??'';
+
+	dcms_validate_nonce($nonce, 'secret-key-form');
+
+    $form_data = [
+        'name_cliente' => sanitize_text_field($_POST['name']),
+        'nit' => sanitize_text_field($_POST['nit']),
+        'name_punto' => isset($_POST['namePunto']) ? sanitize_text_field($_POST['namePunto']) : null,
+        'name_equipo' => isset($_POST['nameEquipo']) ? sanitize_text_field($_POST['nameEquipo']) : null,
+        'city' => isset($_POST['city']) ? sanitize_text_field($_POST['city']) : null,
+        'promotor' => isset($_POST['promotor']) ? sanitize_text_field($_POST['promotor']) : null,
+        'rtc' => isset($_POST['rtc']) ? sanitize_text_field($_POST['rtc']) : null,
+        'capitan' => isset($_POST['capitan']) ? sanitize_text_field($_POST['capitan']) : null,
+        'acepta_terminos' => isset($_POST['dataPolicy']) ? 1 : 0,
+        'ip' => sanitize_text_field($_POST['ip']),
+    ];
+
+    $call_api = save_api($form_data);
+
+    $res = $call_api ? [ 'status' => 1, 'message' => 'Se envió correctamente el formulario' ]
+                    :[ 'status' => 0, 'message' => 'Hubo un error en el envío' ];
+
+	wp_send_json($res);
 }
+add_action('wp_ajax_nopriv_dcms_ajax_frm_contact','dcms_process_contact_form');
+add_action('wp_ajax_dcms_ajax_frm_contact','dcms_process_contact_form');
+
+function dcms_validate_nonce( $nonce, $nonce_name ){
+	if ( ! wp_verify_nonce( $nonce, $nonce_name ) ) {
+		$res = [ 'status' => 0, 'message' => '✋ Error nonce validation!!' ];
+		wp_send_json($res);
+	}
 }
+
+function save_form($form_data, $response_body) {
+    global $wpdb;
+
+    // Insertar datos en la tabla personalizada
+    $wpdb->insert(
+        $wpdb->prefix . 'form_leads',
+        [
+            'name_cliente' => $form_data['name_cliente'],
+            'nit' => $form_data['nit'],
+            'name_punto' => $form_data['name_punto'],
+            'name_equipo' => $form_data['name_equipo'],
+            'city' => $form_data['city'],
+            'promotor' => $form_data['promotor'],
+            'rtc' => $form_data['rtc'],
+            'capitan' => $form_data['capitan'],
+            'acepta_terminos' => $form_data['acepta_terminos'],
+            'ip' => $form_data['ip'],
+            'response_api' => $response_body,
+        ]
+    );
+}
+
+// Insert data in API
+function save_api($form_data) {
+    $url = 'https://app-edu-recaudocursos-php.azurewebsites.net/api-cursos/public/crear-logs';
+
+    $data = [
+        'identificador' => current_time('Y-m-d'),
+        'tipo' => 'Prueba Form Jhonatan',
+        'info' => [
+            'name_cliente' => $form_data['name_cliente'],
+            'nit' => $form_data['nit'],
+            'name_punto' => $form_data['name_punto'],
+            'name_equipo' => $form_data['name_equipo'],
+            'city' => $form_data['city'],
+            'promotor' => $form_data['promotor'],
+            'rtc' => $form_data['rtc'],
+            'capitan' => $form_data['capitan'],
+            'acepta_terminos' => $form_data['acepta_terminos'],
+            'ip' => $form_data['ip'],
+        ]
+    ];
+
+    $body = json_encode($data);
+
+    $args = [
+        'method'    => 'POST',
+        'body'      => $body,
+        'headers'   => [
+            'Content-Type' => 'application/json',
+        ],
+    ];
+
+    $response = wp_remote_request($url, $args);
+
+    if (is_wp_error($response)) {
+        $error_message = $response->get_error_message();
+        error_log("Error al enviar datos a la API: $error_message");
+    } else {
+        $response_body = wp_remote_retrieve_body($response);
+        error_log("Respuesta de la API: $response_body");
+    }
+    // Guardar los datos en la base de datos
+    save_form($form_data, $response_body);
+
+    return $response_body;
+}
+
+function export_leads_excel() {
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'form_leads';
+
+    $results = $wpdb->get_results("SELECT * FROM $table_name", ARRAY_A);
+
+    if (empty($results)) {
+        wp_die('No hay datos para exportar.');
+    }
+ 
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="custom-table-export.xls"');
+    header('Cache-Control: max-age=0');
+
+    $output = fopen('php://output', 'w');
+
+    fputcsv($output, array_keys($results[0]), "\t");
+
+    foreach ($results as $row) {
+        fputcsv($output, $row, "\t");
+    }
+
+    fclose($output);
+    exit;
+}
+add_action('admin_post_export_leads', 'export_leads_excel');
+add_action('admin_post_nopriv_export_leads', 'export_leads_excel');
+
+function add_export_button() {
+    echo '<a href="' . admin_url('admin-post.php?action=export_leads') . '" class="btn btn-primary">Exportar Leads</a>';
+}
+add_shortcode('export_button', 'add_export_button');
